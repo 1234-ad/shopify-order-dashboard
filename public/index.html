@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Dashboard - Shopify App</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading State -->
+        <div id="loading" class="loading-container">
+            <div class="spinner"></div>
+            <p>Loading orders...</p>
+        </div>
+
+        <!-- Auth Required State -->
+        <div id="auth-required" class="auth-container" style="display: none;">
+            <div class="auth-card">
+                <h1>🛍️ Shopify Order Dashboard</h1>
+                <p>Please authenticate to view your orders</p>
+                <button onclick="authenticate()" class="btn-primary">Connect to Shopify</button>
+            </div>
+        </div>
+
+        <!-- Main Dashboard -->
+        <div id="dashboard" style="display: none;">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="header-content">
+                    <h1>📊 Order Dashboard</h1>
+                    <div class="header-actions">
+                        <span id="shop-name" class="shop-name"></span>
+                        <button onclick="syncOrders()" class="btn-secondary" id="sync-btn">
+                            <span class="sync-icon">🔄</span> Sync Orders
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Stats Cards -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-label">Total Orders</div>
+                    <div class="stat-value" id="total-orders">0</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Last 60 Days</div>
+                    <div class="stat-value" id="date-range">-</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Total Revenue</div>
+                    <div class="stat-value" id="total-revenue">$0</div>
+                </div>
+            </div>
+
+            <!-- Orders Table -->
+            <div class="orders-container">
+                <div class="orders-header">
+                    <h2>Recent Orders</h2>
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search orders..." onkeyup="filterOrders()">
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table class="orders-table">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Items</th>
+                                <th>Total</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="orders-tbody">
+                            <!-- Orders will be inserted here -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination -->
+                <div class="pagination" id="pagination">
+                    <button onclick="previousPage()" id="prev-btn" class="btn-secondary" disabled>Previous</button>
+                    <span id="page-info">Page 1</span>
+                    <button onclick="nextPage()" id="next-btn" class="btn-secondary">Next</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Detail Modal -->
+        <div id="order-modal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <div id="order-detail">
+                    <!-- Order details will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
